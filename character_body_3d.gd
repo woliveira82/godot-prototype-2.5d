@@ -16,7 +16,7 @@ func _physics_process(delta):
 		velocity.y -= gravity * delta
 
 	# input simples (WASD direto no mundo)
-	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	var input_dir = Input.get_vector("left", "right", "up", "down").normalized()
 	var direction = Vector3(input_dir.x, 0, input_dir.y)
 
 	if direction != Vector3.ZERO:

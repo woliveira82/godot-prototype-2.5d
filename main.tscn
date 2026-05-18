@@ -21,8 +21,6 @@ albedo_texture = ExtResource("1_0xm2m")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7dm0k"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_7dm0k"]
-
 [node name="Main" type="Node3D" unique_id=2053537069]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1608557601]
@@ -45,8 +43,12 @@ script = ExtResource("1_ig7tw")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=1970157577]
 shape = SubResource("CapsuleShape3D_7dm0k")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D" unique_id=1287776446]
-mesh = SubResource("CapsuleMesh_7dm0k")
+[node name="Sprite3D" type="Sprite3D" parent="CharacterBody3D" unique_id=1232140018]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+pixel_size = 0.06
+billboard = 1
+texture_filter = 0
+texture = ExtResource("1_0xm2m")
 
 [node name="CameraPivot" type="Node3D" parent="CharacterBody3D" unique_id=640809836]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
