@@ -1,12 +1,16 @@
 extends CharacterBody3D
 
-enum  FaceDirection {LEFT, RIGHT, UP, DOWN}
+const  FaceDirection = {
+	UP = "up",
+	DOWN = "down",
+	LEFT = "left",
+	RIGHT = "right",
+}
 
-const SPEED = 6.0
-
+@export var SPEED = 6.0
 @export var gravity = 12.0
 
-var face_direction: FaceDirection = FaceDirection.DOWN
+var last_direction: String = FaceDirection.DOWN
 
 @onready var pivot = $CameraPivot
 @onready var sprite = $AnimatedSprite3D
@@ -38,13 +42,22 @@ func _physics_process(delta):
 
 
 func set_animation(input_dir: Vector2):
-	if abs(input_dir.x) > abs(input_dir.y):
+	if input_dir == Vector2.ZERO:
+		var animation: String = "idle_" + last_direction
+		sprite.play(animation)
+	
+	elif abs(input_dir.x) > abs(input_dir.y):
 		if input_dir.x > 0:
-			sprite.play("idle_right")
+			last_direction = FaceDirection.RIGHT
+			sprite.play("run_right")
+			
 		else:
-			sprite.play("idle_left")
+			last_direction = FaceDirection.LEFT
+			sprite.play("run_left")
 	else:
 		if input_dir.y > 0:
-			sprite.play("idle_down")
+			last_direction = FaceDirection.DOWN
+			sprite.play("run_down")
 		else:
-			sprite.play("idle_up")
+			last_direction = FaceDirection.UP
+			sprite.play("run_up")
