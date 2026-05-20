@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bs12xmu4sd4t2"]
 
 [ext_resource type="Script" uid="uid://bm47klwl5gc6i" path="res://character_body_3d.gd" id="1_qi5as"]
+[ext_resource type="Texture2D" uid="uid://xiguktuewsn" path="res://image/soft shadow.png" id="2_c1b4b"]
 [ext_resource type="Texture2D" uid="uid://wh8hrjgqptau" path="res://image/idle_down.png" id="2_jb3kq"]
 [ext_resource type="Texture2D" uid="uid://cn8i38qdwvdcc" path="res://image/idle_left.png" id="3_c1b4b"]
 [ext_resource type="Texture2D" uid="uid://bcy6ywlo34qvx" path="res://image/idle_right.png" id="4_7tnxx"]
@@ -507,11 +508,18 @@ animations = [{
 script = ExtResource("1_qi5as")
 SPEED = 12.0
 
+[node name="Shadow" type="Sprite3D" parent="." unique_id=2077779613]
+transform = Transform3D(1, 0, 0, 0, -2.9802322e-08, 1, 0, -1, -2.9802322e-08, 0, 0.01, 0.5)
+modulate = Color(1, 1, 1, 0.8)
+texture = ExtResource("2_c1b4b")
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1308848101]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_7dm0k")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=540744736]
-pixel_size = 0.06
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+pixel_size = 0.052
 billboard = 1
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_1bvp3")
