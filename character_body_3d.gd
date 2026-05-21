@@ -1,63 +1,117 @@
 extends CharacterBody3D
 
-const  FaceDirection = {
+enum State {
+	IDLE,
+	WALK,
+	ATTACK,
+}
+
+const FaceDirection = {
 	UP = "up",
 	DOWN = "down",
 	LEFT = "left",
 	RIGHT = "right",
 }
 
-@export var SPEED = 6.0
-@export var gravity = 12.0
+@export var speed := 12.0
+@export var gravity := 12.0
 
-var last_direction: String = FaceDirection.DOWN
+var facing: String = FaceDirection.DOWN
+var input_dir := Vector2.ZERO
+var wants_attack := false
+var current_state := State.IDLE
 
-@onready var pivot = $CameraPivot
-@onready var sprite = $AnimatedSprite3D
+@onready var pivot := $CameraPivot
+@onready var sprite := $AnimatedSprite3D
 
 
-func _process(delta):
-	pivot.global_position = global_position + Vector3(0, 1.5, 0)
+func _ready():
+	sprite.animation_finished.connect(_on_animation_finished)
 
 
 func _physics_process(delta):
-	# gravidade
+	_handle_input()
+	_update_state()
+	_handle_movement(delta)
+	_update_animation()
+
+
+func _handle_input():
+	input_dir = Input.get_vector("left", "right", "up", "down")
+	wants_attack = Input.is_action_just_pressed("attack")
+	_update_facing_direction(input_dir)
+
+
+func _update_state():
+	if current_state == State.ATTACK:
+		return
+
+	if wants_attack:
+		current_state = State.ATTACK
+		return
+
+	if input_dir != Vector2.ZERO:
+		current_state = State.WALK
+	else:
+		current_state = State.IDLE
+
+
+func _handle_movement(delta):
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
-	# input simples (WASD direto no mundo)
-	var input_dir = Input.get_vector("left", "right", "up", "down").normalized()
-	set_animation(input_dir)
 	var direction = Vector3(input_dir.x, 0, input_dir.y)
 
 	if direction != Vector3.ZERO:
 		direction = direction.normalized()
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
+
+	if current_state == State.WALK:
+		velocity.x = direction.x * speed
+		velocity.z = direction.z * speed
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, speed)
+		velocity.z = move_toward(velocity.z, 0, speed)
 
 	move_and_slide()
 
 
-func set_animation(input_dir: Vector2):
-	if input_dir == Vector2.ZERO:
-		var animation: String = "idle_" + last_direction
-		sprite.play(animation)
-	
-	elif abs(input_dir.x) > abs(input_dir.y):
-		if input_dir.x > 0:
-			last_direction = FaceDirection.RIGHT
-			sprite.play("run_right")
-			
+func _update_animation():
+	var anim := ""
+
+	match current_state:
+		State.IDLE:
+			anim = "idle_" + facing
+
+		State.WALK:
+			anim = "run_" + facing
+
+		State.ATTACK:
+			anim = "atk_1_" + facing
+
+	if sprite.animation != anim:
+		sprite.play(anim)
+
+
+func _update_facing_direction(dir: Vector2) -> void:
+	if dir == Vector2.ZERO or current_state == State.ATTACK:
+		return
+
+	if abs(dir.x) > abs(dir.y):
+		if dir.x > 0:
+			facing = FaceDirection.RIGHT
 		else:
-			last_direction = FaceDirection.LEFT
-			sprite.play("run_left")
+			facing = FaceDirection.LEFT
+
 	else:
-		if input_dir.y > 0:
-			last_direction = FaceDirection.DOWN
-			sprite.play("run_down")
+		if dir.y > 0:
+			facing = FaceDirection.DOWN
 		else:
-			last_direction = FaceDirection.UP
-			sprite.play("run_up")
+			facing = FaceDirection.UP
+
+
+func _on_animation_finished():
+	if current_state == State.ATTACK:
+		if input_dir != Vector2.ZERO:
+			current_state = State.WALK
+		else:
+			current_state = State.IDLE
