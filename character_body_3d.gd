@@ -23,6 +23,7 @@ var current_state := State.IDLE
 
 @onready var pivot := $CameraPivot
 @onready var sprite := $AnimatedSprite3D
+@onready var hitbox := $Hitbox
 
 
 func _ready():
@@ -47,6 +48,7 @@ func _update_state():
 		return
 
 	if wants_attack:
+		hitbox.monitoring = true
 		current_state = State.ATTACK
 		return
 
@@ -99,18 +101,23 @@ func _update_facing_direction(dir: Vector2) -> void:
 	if abs(dir.x) > abs(dir.y):
 		if dir.x > 0:
 			facing = FaceDirection.RIGHT
+			hitbox.position = Vector3(0.75, 0.5, 0.0)
 		else:
 			facing = FaceDirection.LEFT
+			hitbox.position = Vector3(-0.75, 0.5, 0.0)
 
 	else:
 		if dir.y > 0:
 			facing = FaceDirection.DOWN
+			hitbox.position = Vector3(0.0, 0.5, 0.75)
 		else:
 			facing = FaceDirection.UP
+			hitbox.position = Vector3(0.0, 0.5, -0.75)
 
 
 func _on_animation_finished():
 	if current_state == State.ATTACK:
+		hitbox.monitoring = false
 		if input_dir != Vector2.ZERO:
 			current_state = State.WALK
 		else:
