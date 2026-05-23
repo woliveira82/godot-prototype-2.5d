@@ -122,3 +122,13 @@ func _on_animation_finished():
 			current_state = State.WALK
 		else:
 			current_state = State.IDLE
+
+
+func _on_hitbox_area_entered(area):
+	if current_state != State.ATTACK:
+		return
+
+	var target = area.get_parent()
+
+	if target.has_method("take_damage"):
+		target.take_damage(1)
