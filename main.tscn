@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://biulchcr3lj40" path="res://icon.svg" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://bs12xmu4sd4t2" path="res://character.tscn" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://c1yj0md5kqu3v" path="res://training_dummy.tscn" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://rkniy81ex7k7" path="res://enemy.tscn" id="4_1bvp3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7dm0k"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -36,11 +37,15 @@ use_collision = true
 size = Vector3(100, 0.1, 100)
 material = SubResource("StandardMaterial3D_h2yge")
 
-[node name="CharacterBody3D" parent="." unique_id=784886398 instance=ExtResource("2_0xm2m")]
+[node name="Player" parent="." unique_id=784886398 instance=ExtResource("2_0xm2m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
 [node name="TrainingDummy" parent="." unique_id=496300989 instance=ExtResource("3_h2yge")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0161307, 0, 15.983174)
 
-[editable path="CharacterBody3D"]
+[node name="Enemy" parent="." unique_id=821342521 instance=ExtResource("4_1bvp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3495064, 0.5585449, 2.0489225)
+
+[editable path="Player"]
 [editable path="TrainingDummy"]
+[editable path="Enemy"]
