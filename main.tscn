@@ -46,6 +46,30 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0161307, 0, 15.983174)
 [node name="Enemy" parent="." unique_id=821342521 instance=ExtResource("4_1bvp3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3495064, 0.5585449, 2.0489225)
 
+[node name="Enemy2" parent="." unique_id=1410926431 instance=ExtResource("4_1bvp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.699013, 1.1170897, 4.097845)
+
+[node name="Enemy3" parent="." unique_id=109670106 instance=ExtResource("4_1bvp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.04852, 1.6756346, 6.1467676)
+
+[node name="Enemy4" parent="." unique_id=1781083497 instance=ExtResource("4_1bvp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.398026, 2.2341795, 8.19569)
+
+[node name="Enemy5" parent="." unique_id=209030564 instance=ExtResource("4_1bvp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.348526, 2.7927244, 27.07489)
+
+[node name="Enemy6" parent="." unique_id=2004005522 instance=ExtResource("4_1bvp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.05976, 3.3512692, -43.664505)
+
+[node name="Enemy7" parent="." unique_id=162533625 instance=ExtResource("4_1bvp3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.718147, 3.9098141, -41.856487)
+
 [editable path="Player"]
 [editable path="TrainingDummy"]
 [editable path="Enemy"]
+[editable path="Enemy2"]
+[editable path="Enemy3"]
+[editable path="Enemy4"]
+[editable path="Enemy5"]
+[editable path="Enemy6"]
+[editable path="Enemy7"]
