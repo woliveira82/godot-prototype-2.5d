@@ -164,3 +164,10 @@ func _hit_feedback():
 	await get_tree().create_timer(0.2).timeout
 	sprite.modulate = Color.WEB_GREEN
 	sprite.scale = Vector3.ONE
+
+
+func _on_hitbox_area_entered(area):
+	var target = area.get_parent()
+
+	if target.has_method("take_damage"):
+		target.take_damage(1)

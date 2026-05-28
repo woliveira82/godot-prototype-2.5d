@@ -15,7 +15,9 @@ const FaceDirection = {
 
 @export var speed := 12.0
 @export var gravity := 12.0
+@export var max_hp := 5
 
+var hp := max_hp
 var facing: String = FaceDirection.DOWN
 var input_dir := Vector2.ZERO
 var wants_attack := false
@@ -122,6 +124,22 @@ func _on_animation_finished():
 			current_state = State.WALK
 		else:
 			current_state = State.IDLE
+
+
+func take_damage(amount: int):
+	hp -= amount
+	_hit_feedback()
+
+	if hp <= 0:
+		queue_free()
+
+
+func _hit_feedback():
+	sprite.modulate = Color.RED
+	sprite.scale = Vector3(1.1, 0.9, 1.0)
+	await get_tree().create_timer(0.2).timeout
+	sprite.modulate = Color.WHITE
+	sprite.scale = Vector3.ONE
 
 
 func _on_hitbox_area_entered(area):

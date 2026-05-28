@@ -1004,6 +1004,8 @@ animations = [{
 height = 1.0
 radius = 1.0
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_88tkl"]
+
 [node name="Player" type="CharacterBody3D" unique_id=784886398 groups=["player"]]
 script = ExtResource("1_qi5as")
 
@@ -1038,11 +1040,20 @@ current = true
 [node name="Hitbox" type="Area3D" parent="." unique_id=958202064]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.75)
 collision_layer = 0
-collision_mask = 2
+collision_mask = 4
 monitoring = false
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=440882238]
 shape = SubResource("CylinderShape3D_88tkl")
+
+[node name="HurtBox" type="Area3D" parent="." unique_id=76833353]
+collision_layer = 2
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox" unique_id=1903720232]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_88tkl")
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

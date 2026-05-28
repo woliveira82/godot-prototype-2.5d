@@ -43,6 +43,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 [node name="TrainingDummy" parent="." unique_id=496300989 instance=ExtResource("3_h2yge")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0161307, 0, 15.983174)
 
+[node name="HurtBox" parent="TrainingDummy" index="2" unique_id=1365280674]
+collision_layer = 4
+
 [node name="Enemy" parent="." unique_id=821342521 instance=ExtResource("4_1bvp3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3495064, 0.5585449, 2.0489225)
 
