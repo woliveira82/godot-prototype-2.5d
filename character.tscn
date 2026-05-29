@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bs12xmu4sd4t2"]
 
-[ext_resource type="Script" uid="uid://bm47klwl5gc6i" path="res://character_body_3d.gd" id="1_qi5as"]
+[ext_resource type="Script" uid="uid://bm47klwl5gc6i" path="res://player.gd" id="1_88tkl"]
 [ext_resource type="Texture2D" uid="uid://xiguktuewsn" path="res://image/soft shadow.png" id="2_c1b4b"]
 [ext_resource type="Texture2D" uid="uid://wh8hrjgqptau" path="res://image/idle_down.png" id="2_jb3kq"]
 [ext_resource type="Texture2D" uid="uid://cn8i38qdwvdcc" path="res://image/idle_left.png" id="3_c1b4b"]
@@ -1007,7 +1007,7 @@ radius = 1.0
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_88tkl"]
 
 [node name="Player" type="CharacterBody3D" unique_id=784886398 groups=["player"]]
-script = ExtResource("1_qi5as")
+script = ExtResource("1_88tkl")
 
 [node name="Shadow" type="Sprite3D" parent="." unique_id=2077779613]
 transform = Transform3D(1, 0, 0, 0, -2.9802322e-08, 1, 0, -1, -2.9802322e-08, 0, 0.01, 0.5)

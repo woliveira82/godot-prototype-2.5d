@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+signal hp_changed(current_hp, max_hp)
+
 enum State {
 	IDLE,
 	WALK,
@@ -128,6 +130,7 @@ func _on_animation_finished():
 
 func take_damage(amount: int):
 	hp -= amount
+	emit_signal("hp_changed", hp, max_hp)
 	_hit_feedback()
 
 	if hp <= 0:

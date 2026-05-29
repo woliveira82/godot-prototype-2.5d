@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bs12xmu4sd4t2" path="res://character.tscn" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://c1yj0md5kqu3v" path="res://training_dummy.tscn" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://rkniy81ex7k7" path="res://enemy.tscn" id="4_1bvp3"]
+[ext_resource type="Script" uid="uid://m60rtnlbuq1v" path="res://hud.gd" id="5_lquwl"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7dm0k"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -66,6 +67,29 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.05976, 3.3512692, -43.664
 
 [node name="Enemy7" parent="." unique_id=162533625 instance=ExtResource("4_1bvp3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.718147, 3.9098141, -41.856487)
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1077008673]
+script = ExtResource("5_lquwl")
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD" unique_id=680093873]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/MarginContainer" unique_id=1403193074]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HUD/MarginContainer/VBoxContainer" unique_id=1253226971]
+layout_mode = 2
+text = "HP"
+
+[node name="ProgressBar" type="ProgressBar" parent="HUD/MarginContainer/VBoxContainer" unique_id=547261580]
+modulate = Color(1, 0, 0, 1)
+custom_minimum_size = Vector2(250, 24)
+layout_mode = 2
+max_value = 10.0
+step = 1.0
+value = 10.0
+show_percentage = false
 
 [editable path="Player"]
 [editable path="TrainingDummy"]
