@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://bl8v0uoujbgrs"]
+
+[ext_resource type="Script" uid="uid://cvxxyv4djppv3" path="res://hurtbox.gd" id="1_id7pq"]
+
+[node name="Hurtbox" type="Area3D" unique_id=1357632415 groups=["hurtbox"]]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_id7pq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=513440933]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

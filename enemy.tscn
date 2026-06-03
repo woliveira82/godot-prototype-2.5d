@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bbsnjecshpyft" path="res://enemy.gd" id="1_g2u8i"]
 [ext_resource type="Texture2D" uid="uid://xiguktuewsn" path="res://image/soft shadow.png" id="1_jmwgi"]
 [ext_resource type="Texture2D" uid="uid://bn5ae6ulwkjr3" path="res://image/attack1_down.png" id="2_g2u8i"]
+[ext_resource type="PackedScene" uid="uid://bl8v0uoujbgrs" path="res://hurtbox.tscn" id="3_8q82m"]
 [ext_resource type="Texture2D" uid="uid://ed21vq0brrxf" path="res://image/attack1_left.png" id="3_otto8"]
 [ext_resource type="Texture2D" uid="uid://c2f2e0hc7gesm" path="res://image/attack1_right.png" id="4_8q82m"]
 [ext_resource type="Texture2D" uid="uid://cl21vhkk3qw7x" path="res://image/attack1_up.png" id="5_epc7x"]
@@ -18,14 +19,10 @@
 [ext_resource type="Texture2D" uid="uid://bba40b7nnsi52" path="res://image/run_left.png" id="15_ccdwq"]
 [ext_resource type="Texture2D" uid="uid://bu16p45kqw22q" path="res://image/run_right.png" id="16_0jgdh"]
 [ext_resource type="Texture2D" uid="uid://cx625v5ld5iyp" path="res://image/run_up.png" id="17_6wg26"]
+[ext_resource type="PackedScene" uid="uid://dhgbhqttus1lh" path="res://hitbox.tscn" id="19_otto8"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7dm0k"]
 radius = 0.45
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jmwgi"]
-radius = 0.6
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g2u8i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_88tkl"]
 atlas = ExtResource("2_g2u8i")
@@ -1006,9 +1003,13 @@ animations = [{
 "speed": 8.0
 }]
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_otto8"]
+radius = 0.55
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_epc7x"]
+
 [node name="Enemy" type="CharacterBody3D" unique_id=821342521]
 script = ExtResource("1_g2u8i")
-knockback_force = 7.0
 
 [node name="Shadow" type="Sprite3D" parent="." unique_id=51891032]
 transform = Transform3D(1, 0, 0, 0, -2.9802322e-08, 1, 0, -1, -2.9802322e-08, 0, 0.01, 0.5)
@@ -1018,24 +1019,6 @@ texture = ExtResource("1_jmwgi")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1091139493]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_7dm0k")
-
-[node name="Hitbox" type="Area3D" parent="." unique_id=907941752]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-collision_layer = 0
-collision_mask = 2
-monitorable = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=2144690601]
-shape = SubResource("CapsuleShape3D_jmwgi")
-
-[node name="HurtBox" type="Area3D" parent="." unique_id=498029631]
-collision_layer = 4
-collision_mask = 0
-monitoring = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox" unique_id=117072756]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_g2u8i")
 
 [node name="VisualPivot" type="Node3D" parent="." unique_id=880344041]
 
@@ -1049,4 +1032,18 @@ sprite_frames = SubResource("SpriteFrames_1bvp3")
 animation = &"atk_1_down"
 autoplay = "idle_down"
 
-[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[node name="Hitbox" parent="." unique_id=1631020973 instance=ExtResource("19_otto8")]
+collision_mask = 2
+monitoring = true
+
+[node name="CollisionShape3D" parent="Hitbox" index="0" unique_id=1651067017]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_otto8")
+
+[node name="Hurtbox" parent="." unique_id=1357632415 instance=ExtResource("3_8q82m")]
+
+[node name="CollisionShape3D" parent="Hurtbox" index="0" unique_id=513440933]
+shape = SubResource("CapsuleShape3D_epc7x")
+
+[editable path="Hitbox"]
+[editable path="Hurtbox"]

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://7rdyh00qnrdf"]
 
 [ext_resource type="Texture2D" uid="uid://biulchcr3lj40" path="res://icon.svg" id="1_0xm2m"]
-[ext_resource type="PackedScene" uid="uid://bs12xmu4sd4t2" path="res://character.tscn" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://bs12xmu4sd4t2" path="res://player.tscn" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://c1yj0md5kqu3v" path="res://training_dummy.tscn" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://rkniy81ex7k7" path="res://enemy.tscn" id="4_1bvp3"]
 [ext_resource type="Script" uid="uid://m60rtnlbuq1v" path="res://hud.gd" id="5_lquwl"]
@@ -92,11 +92,19 @@ value = 10.0
 show_percentage = false
 
 [editable path="Player"]
+[editable path="Player/Hitbox"]
 [editable path="TrainingDummy"]
 [editable path="Enemy"]
+[editable path="Enemy/Hitbox"]
 [editable path="Enemy2"]
+[editable path="Enemy2/Hitbox"]
 [editable path="Enemy3"]
+[editable path="Enemy3/Hitbox"]
 [editable path="Enemy4"]
+[editable path="Enemy4/Hitbox"]
 [editable path="Enemy5"]
+[editable path="Enemy5/Hitbox"]
 [editable path="Enemy6"]
+[editable path="Enemy6/Hitbox"]
 [editable path="Enemy7"]
+[editable path="Enemy7/Hitbox"]

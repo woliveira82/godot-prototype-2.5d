@@ -33,12 +33,11 @@ var knockback := false
 
 @onready var sprite := $VisualPivot/AnimatedSprite3D
 @onready var visual := $VisualPivot
-@onready var hitbox := $Hitbox
 
 
 func _ready():
 	player = get_tree().get_first_node_in_group("player")
-	hitbox.body_entered.connect(_on_hitbox_body_entered)
+	$Hurtbox.on_damage_taken.connect(_take_damage)
 	sprite.modulate = Color.WEB_GREEN
 
 
@@ -130,13 +129,13 @@ func _update_animation():
 	sprite.play(anim)
 
 
-func take_damage(amount: int):
+func _take_damage(amount: int, attacker_pos: Vector3):
 	if current_state == State.DEAD:
 		return
 
 	hp -= amount
 	_hit_feedback()
-	knockback_velocity = (global_position - player.global_position).normalized()
+	knockback_velocity = (global_position - attacker_pos).normalized()
 
 	current_state = State.STUN
 	stun_time = 1.0
@@ -164,10 +163,3 @@ func _hit_feedback():
 	await get_tree().create_timer(0.2).timeout
 	sprite.modulate = Color.WEB_GREEN
 	sprite.scale = Vector3.ONE
-
-
-func _on_hitbox_area_entered(area):
-	var target = area.get_parent()
-
-	if target.has_method("take_damage"):
-		target.take_damage(1)

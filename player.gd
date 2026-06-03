@@ -17,13 +17,18 @@ const FaceDirection = {
 
 @export var speed := 12.0
 @export var gravity := 12.0
-@export var max_hp := 5
+@export var max_hp := 10
+@export var knockback_force := 8.0
+@export var invulnerability_time := 0.5
 
 var hp := max_hp
 var facing: String = FaceDirection.DOWN
 var input_dir := Vector2.ZERO
 var wants_attack := false
 var current_state := State.IDLE
+var knockback_velocity := Vector3.ZERO
+var knockback_dir := Vector3.ZERO
+var is_invulnerable := false
 
 @onready var pivot := $CameraPivot
 @onready var sprite := $AnimatedSprite3D
@@ -32,6 +37,7 @@ var current_state := State.IDLE
 
 func _ready():
 	sprite.animation_finished.connect(_on_animation_finished)
+	$Hurtbox.on_damage_taken.connect(_take_damage)
 
 
 func _physics_process(delta):
@@ -66,24 +72,24 @@ func _handle_movement(delta):
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
-	var direction = Vector3(input_dir.x, 0, input_dir.y)
-
+	var direction := Vector3(input_dir.x, 0, input_dir.y)
 	if direction != Vector3.ZERO:
 		direction = direction.normalized()
 
+	var move_x := 0.0
+	var move_z := 0.0
 	if current_state == State.WALK:
-		velocity.x = direction.x * speed
-		velocity.z = direction.z * speed
-	else:
-		velocity.x = move_toward(velocity.x, 0, speed)
-		velocity.z = move_toward(velocity.z, 0, speed)
+		move_x = direction.x * speed
+		move_z = direction.z * speed
 
+	velocity.x = move_x + knockback_velocity.x
+	velocity.z = move_z + knockback_velocity.z
+	knockback_velocity = knockback_velocity.lerp(Vector3.ZERO, delta * 10.0)
 	move_and_slide()
 
 
 func _update_animation():
 	var anim := ""
-
 	match current_state:
 		State.IDLE:
 			anim = "idle_" + facing
@@ -128,13 +134,27 @@ func _on_animation_finished():
 			current_state = State.IDLE
 
 
-func take_damage(amount: int):
+func _take_damage(amount: int, attacker_pos: Vector3):
+	if is_invulnerable:
+		return
+
 	hp -= amount
 	emit_signal("hp_changed", hp, max_hp)
 	_hit_feedback()
+	knockback_velocity = (position - attacker_pos).normalized() * knockback_force
+
+	_start_invulnerability()
 
 	if hp <= 0:
 		queue_free()
+
+
+func _start_invulnerability():
+	is_invulnerable = true
+	_blink_invulnerability()
+	await get_tree().create_timer(invulnerability_time).timeout
+	is_invulnerable = false
+	sprite.visible = true
 
 
 func _hit_feedback():
@@ -145,11 +165,9 @@ func _hit_feedback():
 	sprite.scale = Vector3.ONE
 
 
-func _on_hitbox_area_entered(area):
-	if current_state != State.ATTACK:
-		return
-
-	var target = area.get_parent()
-
-	if target.has_method("take_damage"):
-		target.take_damage(1)
+func _blink_invulnerability():
+	while is_invulnerable:
+		sprite.visible = false
+		await get_tree().create_timer(0.08).timeout
+		sprite.visible = true
+		await get_tree().create_timer(0.08).timeout

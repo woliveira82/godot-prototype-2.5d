@@ -18,8 +18,11 @@
 [ext_resource type="Texture2D" uid="uid://byjkmk244wg5j" path="res://image/attack2_right.png" id="9_kjduu"]
 [ext_resource type="Texture2D" uid="uid://cx625v5ld5iyp" path="res://image/run_up.png" id="9_lpiy1"]
 [ext_resource type="Texture2D" uid="uid://dp8to2lf8h77c" path="res://image/attack2_up.png" id="10_3d8aq"]
+[ext_resource type="PackedScene" uid="uid://dhgbhqttus1lh" path="res://hitbox.tscn" id="19_y0ipg"]
+[ext_resource type="PackedScene" uid="uid://bl8v0uoujbgrs" path="res://hurtbox.tscn" id="20_pbfsw"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7dm0k"]
+radius = 0.45
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_88tkl"]
 atlas = ExtResource("3_x1sy7")
@@ -1000,11 +1003,11 @@ animations = [{
 "speed": 8.0
 }]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_88tkl"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_y0ipg"]
 height = 1.0
 radius = 1.0
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_88tkl"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5tmop"]
 
 [node name="Player" type="CharacterBody3D" unique_id=784886398 groups=["player"]]
 script = ExtResource("1_88tkl")
@@ -1026,6 +1029,8 @@ texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_1bvp3")
 animation = &"atk_1_down"
 autoplay = "idle_down"
+frame = 7
+frame_progress = 1.0
 
 [node name="CameraPivot" type="Node3D" parent="." unique_id=556064043]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
@@ -1037,23 +1042,17 @@ spring_length = 8.0
 [node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D" unique_id=1935436998]
 current = true
 
-[node name="Hitbox" type="Area3D" parent="." unique_id=958202064]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.75)
-collision_layer = 0
-collision_mask = 4
-monitoring = false
-monitorable = false
+[node name="Hitbox" parent="." unique_id=1631020973 instance=ExtResource("19_y0ipg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.5)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=440882238]
-shape = SubResource("CylinderShape3D_88tkl")
+[node name="CollisionShape3D" parent="Hitbox" index="0" unique_id=1651067017]
+shape = SubResource("CylinderShape3D_y0ipg")
 
-[node name="HurtBox" type="Area3D" parent="." unique_id=76833353]
+[node name="Hurtbox" parent="." unique_id=1357632415 instance=ExtResource("20_pbfsw")]
 collision_layer = 2
-collision_mask = 0
-monitoring = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox" unique_id=1903720232]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_88tkl")
+[node name="CollisionShape3D" parent="Hurtbox" index="0" unique_id=513440933]
+shape = SubResource("CapsuleShape3D_5tmop")
 
-[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[editable path="Hitbox"]
+[editable path="Hurtbox"]
