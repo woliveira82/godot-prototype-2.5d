@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bs12xmu4sd4t2" path="res://player.tscn" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://c1yj0md5kqu3v" path="res://training_dummy.tscn" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://rkniy81ex7k7" path="res://enemy.tscn" id="4_1bvp3"]
+[ext_resource type="Script" uid="uid://dtsjl0vkf3xwb" path="res://enemy_spawner.gd" id="5_7mycd"]
 [ext_resource type="Script" uid="uid://m60rtnlbuq1v" path="res://hud.gd" id="5_lquwl"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7dm0k"]
@@ -41,32 +42,51 @@ material = SubResource("StandardMaterial3D_h2yge")
 [node name="Player" parent="." unique_id=784886398 instance=ExtResource("2_0xm2m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
-[node name="TrainingDummy" parent="." unique_id=496300989 instance=ExtResource("3_h2yge")]
+[node name="Enemies" type="Node3D" parent="." unique_id=1283084162]
+unique_name_in_owner = true
+
+[node name="TrainingDummy" parent="Enemies" unique_id=496300989 instance=ExtResource("3_h2yge")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0161307, 0, 15.983174)
 
-[node name="HurtBox" parent="TrainingDummy" index="2" unique_id=1365280674]
+[node name="HurtBox" parent="Enemies/TrainingDummy" index="2" unique_id=1365280674]
 collision_layer = 4
 
-[node name="Enemy" parent="." unique_id=821342521 instance=ExtResource("4_1bvp3")]
+[node name="Enemy" parent="Enemies" unique_id=821342521 instance=ExtResource("4_1bvp3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3495064, 0.5585449, 2.0489225)
 
-[node name="Enemy2" parent="." unique_id=1410926431 instance=ExtResource("4_1bvp3")]
+[node name="Enemy2" parent="Enemies" unique_id=1410926431 instance=ExtResource("4_1bvp3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.699013, 1.1170897, 4.097845)
 
-[node name="Enemy3" parent="." unique_id=109670106 instance=ExtResource("4_1bvp3")]
+[node name="Enemy3" parent="Enemies" unique_id=109670106 instance=ExtResource("4_1bvp3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.04852, 1.6756346, 6.1467676)
 
-[node name="Enemy4" parent="." unique_id=1781083497 instance=ExtResource("4_1bvp3")]
+[node name="Enemy4" parent="Enemies" unique_id=1781083497 instance=ExtResource("4_1bvp3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.398026, 2.2341795, 8.19569)
 
-[node name="Enemy5" parent="." unique_id=209030564 instance=ExtResource("4_1bvp3")]
+[node name="Enemy5" parent="Enemies" unique_id=209030564 instance=ExtResource("4_1bvp3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.348526, 2.7927244, 27.07489)
 
-[node name="Enemy6" parent="." unique_id=2004005522 instance=ExtResource("4_1bvp3")]
+[node name="Enemy6" parent="Enemies" unique_id=2004005522 instance=ExtResource("4_1bvp3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.05976, 3.3512692, -43.664505)
 
-[node name="Enemy7" parent="." unique_id=162533625 instance=ExtResource("4_1bvp3")]
+[node name="Enemy7" parent="Enemies" unique_id=162533625 instance=ExtResource("4_1bvp3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.718147, 3.9098141, -41.856487)
+
+[node name="EnemySpawner" type="Node3D" parent="." unique_id=378055159]
+script = ExtResource("5_7mycd")
+enemy_scene = ExtResource("4_1bvp3")
+
+[node name="Point1" type="Node3D" parent="EnemySpawner" unique_id=2146634461]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45, 0, -44)
+
+[node name="Point2" type="Node3D" parent="EnemySpawner" unique_id=317356122]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.02562, 0, -43.696465)
+
+[node name="Point3" type="Node3D" parent="EnemySpawner" unique_id=398252524]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.10455, 0, 44.916153)
+
+[node name="Point4" type="Node3D" parent="EnemySpawner" unique_id=1216260669]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.39979, 0, 45.059593)
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1077008673]
 script = ExtResource("5_lquwl")
@@ -93,18 +113,26 @@ show_percentage = false
 
 [editable path="Player"]
 [editable path="Player/Hitbox"]
-[editable path="TrainingDummy"]
-[editable path="Enemy"]
-[editable path="Enemy/Hitbox"]
-[editable path="Enemy2"]
-[editable path="Enemy2/Hitbox"]
-[editable path="Enemy3"]
-[editable path="Enemy3/Hitbox"]
-[editable path="Enemy4"]
-[editable path="Enemy4/Hitbox"]
-[editable path="Enemy5"]
-[editable path="Enemy5/Hitbox"]
-[editable path="Enemy6"]
-[editable path="Enemy6/Hitbox"]
-[editable path="Enemy7"]
-[editable path="Enemy7/Hitbox"]
+[editable path="Player/Hurtbox"]
+[editable path="Enemies/TrainingDummy"]
+[editable path="Enemies/Enemy"]
+[editable path="Enemies/Enemy/Hitbox"]
+[editable path="Enemies/Enemy/Hurtbox"]
+[editable path="Enemies/Enemy2"]
+[editable path="Enemies/Enemy2/Hitbox"]
+[editable path="Enemies/Enemy2/Hurtbox"]
+[editable path="Enemies/Enemy3"]
+[editable path="Enemies/Enemy3/Hitbox"]
+[editable path="Enemies/Enemy3/Hurtbox"]
+[editable path="Enemies/Enemy4"]
+[editable path="Enemies/Enemy4/Hitbox"]
+[editable path="Enemies/Enemy4/Hurtbox"]
+[editable path="Enemies/Enemy5"]
+[editable path="Enemies/Enemy5/Hitbox"]
+[editable path="Enemies/Enemy5/Hurtbox"]
+[editable path="Enemies/Enemy6"]
+[editable path="Enemies/Enemy6/Hitbox"]
+[editable path="Enemies/Enemy6/Hurtbox"]
+[editable path="Enemies/Enemy7"]
+[editable path="Enemies/Enemy7/Hitbox"]
+[editable path="Enemies/Enemy7/Hurtbox"]
