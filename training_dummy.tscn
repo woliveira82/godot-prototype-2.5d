@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bdvls0l3onv78" path="res://training_dummy.gd" id="1_w4js7"]
 [ext_resource type="Texture2D" uid="uid://bydj3det7wjtj" path="res://image/trainning-doll.png" id="2_7knb0"]
+[ext_resource type="PackedScene" uid="uid://bl8v0uoujbgrs" path="res://hurtbox.tscn" id="3_7knb0"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0xm2m"]
 
@@ -48,7 +49,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1bvp3"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_a3bbp"]
 
 [node name="TrainingDummy" type="StaticBody3D" unique_id=496300989]
 script = ExtResource("1_w4js7")
@@ -65,11 +66,9 @@ texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_kek77")
 frame = 2
 
-[node name="HurtBox" type="Area3D" parent="." unique_id=1365280674]
-collision_layer = 2
-collision_mask = 0
-monitoring = false
+[node name="Hurtbox" parent="." unique_id=1357632415 instance=ExtResource("3_7knb0")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox" unique_id=1496765237]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_1bvp3")
+[node name="CollisionShape3D" parent="Hurtbox" index="0" unique_id=513440933]
+shape = SubResource("CapsuleShape3D_a3bbp")
+
+[editable path="Hurtbox"]

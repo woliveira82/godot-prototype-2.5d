@@ -5,10 +5,13 @@ extends StaticBody3D
 @onready var sprite := $AnimatedSprite3D
 
 
-func take_damage(amount: int):
+func _ready():
+	$Hurtbox.on_damage_taken.connect(_take_damage)
+
+
+func _take_damage(amount: int, _attacker_pos: Vector3):
 	hp -= amount
 	_hit_feedback()
-	print("Dummy HP:", hp)
 	if hp <= 0:
 		queue_free()
 

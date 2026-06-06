@@ -36,11 +36,15 @@ shadow_enabled = true
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=692897615]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 use_collision = true
-size = Vector3(100, 0.1, 100)
+size = Vector3(100, 1, 100)
 material = SubResource("StandardMaterial3D_h2yge")
 
 [node name="Player" parent="." unique_id=784886398 instance=ExtResource("2_0xm2m")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Camera3D" parent="Player/CameraPivot/SpringArm3D" parent_id_path=PackedInt32Array(784886398, 1071224072) index="0" unique_id=1935436998]
+fov = 90.0
+size = 25.0
 
 [node name="Enemies" type="Node3D" parent="." unique_id=1283084162]
 unique_name_in_owner = true
@@ -50,27 +54,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0161307, 0, 15.983174)
 
 [node name="HurtBox" parent="Enemies/TrainingDummy" index="2" unique_id=1365280674]
 collision_layer = 4
-
-[node name="Enemy" parent="Enemies" unique_id=821342521 instance=ExtResource("4_1bvp3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.3495064, 0.5585449, 2.0489225)
-
-[node name="Enemy2" parent="Enemies" unique_id=1410926431 instance=ExtResource("4_1bvp3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.699013, 1.1170897, 4.097845)
-
-[node name="Enemy3" parent="Enemies" unique_id=109670106 instance=ExtResource("4_1bvp3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.04852, 1.6756346, 6.1467676)
-
-[node name="Enemy4" parent="Enemies" unique_id=1781083497 instance=ExtResource("4_1bvp3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.398026, 2.2341795, 8.19569)
-
-[node name="Enemy5" parent="Enemies" unique_id=209030564 instance=ExtResource("4_1bvp3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.348526, 2.7927244, 27.07489)
-
-[node name="Enemy6" parent="Enemies" unique_id=2004005522 instance=ExtResource("4_1bvp3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.05976, 3.3512692, -43.664505)
-
-[node name="Enemy7" parent="Enemies" unique_id=162533625 instance=ExtResource("4_1bvp3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.718147, 3.9098141, -41.856487)
 
 [node name="EnemySpawner" type="Node3D" parent="." unique_id=378055159]
 script = ExtResource("5_7mycd")
@@ -115,24 +98,3 @@ show_percentage = false
 [editable path="Player/Hitbox"]
 [editable path="Player/Hurtbox"]
 [editable path="Enemies/TrainingDummy"]
-[editable path="Enemies/Enemy"]
-[editable path="Enemies/Enemy/Hitbox"]
-[editable path="Enemies/Enemy/Hurtbox"]
-[editable path="Enemies/Enemy2"]
-[editable path="Enemies/Enemy2/Hitbox"]
-[editable path="Enemies/Enemy2/Hurtbox"]
-[editable path="Enemies/Enemy3"]
-[editable path="Enemies/Enemy3/Hitbox"]
-[editable path="Enemies/Enemy3/Hurtbox"]
-[editable path="Enemies/Enemy4"]
-[editable path="Enemies/Enemy4/Hitbox"]
-[editable path="Enemies/Enemy4/Hurtbox"]
-[editable path="Enemies/Enemy5"]
-[editable path="Enemies/Enemy5/Hitbox"]
-[editable path="Enemies/Enemy5/Hurtbox"]
-[editable path="Enemies/Enemy6"]
-[editable path="Enemies/Enemy6/Hitbox"]
-[editable path="Enemies/Enemy6/Hurtbox"]
-[editable path="Enemies/Enemy7"]
-[editable path="Enemies/Enemy7/Hitbox"]
-[editable path="Enemies/Enemy7/Hurtbox"]

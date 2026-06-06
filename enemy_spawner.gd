@@ -24,5 +24,5 @@ func spawn_loop() -> void:
 func spawn_enemy() -> void:
 	var enemy = enemy_scene.instantiate()
 	var spawner_point: Node3D = spawner_points.pick_random()
-	enemy.global_position = spawner_point.global_position
 	enemy_container.add_child(enemy)
+	enemy.global_position = spawner_point.global_position
