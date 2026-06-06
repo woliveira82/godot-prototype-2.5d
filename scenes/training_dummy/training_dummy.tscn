@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://c1yj0md5kqu3v"]
 
-[ext_resource type="Script" uid="uid://bdvls0l3onv78" path="res://training_dummy.gd" id="1_w4js7"]
-[ext_resource type="Texture2D" uid="uid://bydj3det7wjtj" path="res://image/trainning-doll.png" id="2_7knb0"]
-[ext_resource type="PackedScene" uid="uid://bl8v0uoujbgrs" path="res://hurtbox.tscn" id="3_7knb0"]
+[ext_resource type="Script" uid="uid://dlbahvuihvdo5" path="res://scenes/training_dummy/training_dummy.gd" id="1_w4js7"]
+[ext_resource type="Texture2D" uid="uid://vq5rhhwhav3d" path="res://assets/art/trainning-doll.png" id="2_7knb0"]
+[ext_resource type="PackedScene" uid="uid://bl8v0uoujbgrs" path="res://scenes/combat/hurtbox.tscn" id="3_7knb0"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0xm2m"]
 
